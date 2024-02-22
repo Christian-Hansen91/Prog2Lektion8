@@ -15,6 +15,10 @@ public class Opgave01 {
         System.out.println(twoDimensionalIntArray.getValueAt(2, 4));
         System.out.println(twoDimensionalIntArray.sumRow(1));
         System.out.println(twoDimensionalIntArray.sumColumn(3));
+        System.out.println(twoDimensionalIntArray.sumAll());
+        twoDimensionalIntArray.print();
+        twoDimensionalIntArray.apply(2);
+        System.out.println();
         twoDimensionalIntArray.print();
 
     }

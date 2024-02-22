@@ -1,6 +1,5 @@
 package opgave04.models;
 
-import java.util.ArrayList;
 
 public class TheaterFloor {
     int[][] seats = { { 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 }, { 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 },
@@ -19,8 +18,13 @@ public class TheaterFloor {
      */
 
     public boolean buySeat(int row, int seat) {
-        // TODO
-        return false;
+        boolean seatSold = false;
+        if (seats[row][seat] != 0) {
+            seats[row][seat] = 0;
+            seatSold = true;
+            System.out.println("sold row " + row + " seat " + seat);
+        }
+        return seatSold;
     }
 
     /**
@@ -32,13 +36,47 @@ public class TheaterFloor {
      * @return
      */
     public boolean buySeat(int price) {
-        // TODO
-        return false;
+        int seat = 0;
+        int row = 0;
+        boolean foundSeat = false;
+        while (!foundSeat && (row < seats.length && seat < seats[row].length)) {
+            if (!seatSold(row, seat) && seats[row][seat] <= price) {
+                buySeat(row,seat);
+                foundSeat = true;
+            } else {
+                seat++;
+            }
+            if (seat == seats[row].length) {
+                row++;
+            }
+        }
+        return foundSeat;
 
     }
 
     public void printTheaterFloor() {
-        // TODO
+        System.out.println("De ledige pladser er angivet med deres pris");
+        System.out.print("\tSæde: ");
+        for (int i = 0; i < seats.length; i++) {
+            System.out.printf("%4d",i+1);
+        }
+        System.out.println("\n-----------------------------------------------");
+        for (int row = 0; row < seats.length; row++) {
+            System.out.print("Række " + (row + 1) + ": ");
+            for (int seat = 0; seat < seats[row].length; seat++) {
+                if (seatSold(row, seat)) {
+                    System.out.print(seats[row][seat]);
+                } else {
+                    System.out.print("--");
+                }
+                System.out.print(", ");
+            }
+            System.out.println();
+        }
     }
+    public boolean seatSold(int row, int seat) {
+        return seats[row][seat] == 0;
+    }
+
 }
 
